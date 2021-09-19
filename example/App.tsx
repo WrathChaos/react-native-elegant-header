@@ -15,6 +15,7 @@ const App = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <ElegantHeader
         title="Welcome"
+        enableBackButton
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique fermentum magna, porttitor vulputate arcu dapibus et."
       />
     </SafeAreaView>

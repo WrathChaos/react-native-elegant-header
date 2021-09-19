@@ -5,24 +5,31 @@ import {
   Image,
   StyleProp,
   ViewStyle,
-  Dimensions,
   TouchableOpacity,
 } from "react-native";
 /**
  * ? Local Imports
  */
-import styles from "./ElegantHeader.style";
+import styles, { _containerGlueStyle } from "./ElegantHeader.style";
 import Title, { ITitleProps } from "./components/title/Title";
-
-const { width: ScreenWidth } = Dimensions.get("window");
+import Description, {
+  IDescriptionProps,
+} from "./components/description/Description";
+import BackButton, {
+  IBackButtonProps,
+} from "./components/back-button/BackButton";
 
 type CustomStyleProp = StyleProp<ViewStyle> | Array<StyleProp<ViewStyle>>;
 
-interface IElegantHeaderProps extends ITitleProps {
+interface IElegantHeaderProps
+  extends ITitleProps,
+    IDescriptionProps,
+    IBackButtonProps {
   style?: CustomStyleProp;
   title: string;
   description?: string;
   TextComponent?: any;
+  enableBackButton?: boolean;
   TouchableComponent?: any;
 }
 
@@ -31,26 +38,16 @@ const ElegantHeader: React.FC<IElegantHeaderProps> = ({
   title,
   description,
   TextComponent = Text,
+  enableBackButton = false,
   TouchableComponent = TouchableOpacity,
   ...rest
 }) => {
   return (
     <View style={[styles.container, style]}>
-      <TouchableComponent>
-        <Image
-          source={require("./local-assets/left-arrow.png")}
-          style={{ height: 25, width: 25, tintColor: "#3b5278" }}
-        />
-      </TouchableComponent>
-      <View style={{ marginTop: 24 }}>
+      <BackButton enableBackButton={enableBackButton} {...rest} />
+      <View style={_containerGlueStyle(enableBackButton)}>
         <Title title={title} {...rest} />
-        {description && (
-          <View style={{ marginTop: 8, width: ScreenWidth * 0.9 }}>
-            <TextComponent style={{ color: "#a3a3a3", lineHeight: 20 }}>
-              {description}
-            </TextComponent>
-          </View>
-        )}
+        <Description description={description} {...rest} />
       </View>
     </View>
   );
