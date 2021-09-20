@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaView } from "react-native";
-import ElegantHeader from "./lib/ElegantHeader";
+import ElegantHeader from "react-native-elegant-header";
 
 const App = () => {
   return (
